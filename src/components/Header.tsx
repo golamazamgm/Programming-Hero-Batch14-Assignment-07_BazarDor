@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 import Catagories from './Catagories';
+import Marquee from './Marquee';
 interface BazarDorCategory {
     id: string;
     slug: string;
@@ -76,6 +77,7 @@ const Header = async () => {
 
             <Catagories categories={categories} />
 
+            <Marquee />
 
         </div>
     );
