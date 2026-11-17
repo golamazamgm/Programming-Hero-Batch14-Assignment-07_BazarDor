@@ -1,8 +1,9 @@
 
 import Image from 'next/image';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Catagories from './Catagories';
 import Marquee from './Marquee';
+import DateInHeader from './DateInHeader';
 interface BazarDorCategory {
     id: string;
     slug: string;
@@ -14,10 +15,12 @@ const Header = async () => {
 
 
 
-    const date = new Date().toLocaleDateString('bn-BD', { dateStyle: 'full' });
 
-    const res = await fetch('https://api.api-store.workers.dev/api/bazardor/categories')
+    const res = await fetch('https://api.api-store.workers.dev/api/bazardor/categories');
     const categories: BazarDorCategory[] = await res.json()
+
+
+
 
 
     return (
@@ -42,7 +45,7 @@ const Header = async () => {
 
                             <div>
                                 <h1 className=" text-2xl font-bold">বাজার দর</h1>
-                                <p className="text-sm text-[#1D271F] ">{date}</p>
+                                <DateInHeader />
                             </div>
                         </div>
                     </div>
@@ -73,9 +76,12 @@ const Header = async () => {
                 </div> */}
             </div>
 
+            <Suspense fallback ={<h1 className="text-center text-gray-500">Loading Categories...</h1>}>
+                <Catagories categories={categories} />
+            </Suspense>
 
 
-            <Catagories categories={categories} />
+
 
             <Marquee />
 
